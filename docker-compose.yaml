@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  julo-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    ports:
+      - "5050:5050"
+
+  db:
+    image: mysql:8.0
+    container_name: julo-db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=julo_db
+      - MYSQL_ROOT_PASSWORD=test_pass
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  db:

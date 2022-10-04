@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "c1568a7a-72a1-4c51-91f5-7f24a361c1b0",
+		"name": "julo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get cake detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:5050/cakes/9fdb181d-14f3-4ab3-90fa-1e65609c0831",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5050",
+					"path": [
+						"cakes",
+						"9fdb181d-14f3-4ab3-90fa-1e65609c0831"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cake",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"best-titel\",\n    \"description\" : \"cdcddcdc\",\n    \"rating\": 3,\n    \"image\" :\"test-crece\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:5050/cakes",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5050",
+					"path": [
+						"cakes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cake by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:5050/cakes/9fdb181d-14f3-4ab3-90fa-1e65609c0831",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5050",
+					"path": [
+						"cakes",
+						"9fdb181d-14f3-4ab3-90fa-1e65609c0831"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit cake",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"test-edit\",\n    \"description\" : \"test edit\",\n    \"rating\": 9.1,\n    \"image\" :\"test-image edit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:5050/cakes/9fdb181d-14f3-4ab3-90fa-1e65609c0831",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5050",
+					"path": [
+						"cakes",
+						"9fdb181d-14f3-4ab3-90fa-1e65609c0831"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all cakes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:5050/cakes?page=1&perPage=2",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5050",
+					"path": [
+						"cakes"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "perPage",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
