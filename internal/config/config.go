@@ -2,9 +2,11 @@ package config
 
 import (
 	"fmt"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	logger2 "julo-test/internal/logger"
+	"julo-test/internal/util"
 	"os"
 )
 
@@ -29,6 +31,7 @@ type Config interface {
 	ServerAddress() string
 	StorageAddress() string
 	JWTSecret() string
+	JWTConfig() middleware.JWTConfig
 }
 
 func (a *AppConfig) Logger() *zap.Logger {
@@ -47,4 +50,9 @@ func (a *AppConfig) JWTSecret() string {
 func (a *AppConfig) StorageAddress() string {
 
 	return fmt.Sprintf("%s?parseTime=true", viper.GetString("STORAGE_DSN"))
+}
+
+func (a *AppConfig) JWTConfig() middleware.JWTConfig {
+
+	return util.DefaultJWTConfig()
 }

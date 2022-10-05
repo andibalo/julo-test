@@ -2,12 +2,14 @@ package v1
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	voerrors "julo-test/internal/apperrors"
 	"julo-test/internal/config"
 	"julo-test/internal/constants"
 	"julo-test/internal/response"
 	"julo-test/internal/service"
 	"julo-test/internal/util"
+	"net/http"
 )
 
 type WalletController struct {
@@ -28,8 +30,14 @@ func NewWalletController(cfg config.Config, walletService service.WalletService)
 }
 
 func (h *WalletController) AddRoutes(e *echo.Echo) {
-	_ = e.Group(constants.WalletBasePath)
+	r := e.Group(constants.WalletBasePath, middleware.JWT([]byte(h.cfg.JWTSecret())))
 
+	r.POST("", h.EnableWallet)
+}
+
+func (h *WalletController) EnableWallet(c echo.Context) error {
+
+	return c.String(http.StatusOK, "OK")
 }
 
 func (h *WalletController) failedWalletResponse(c echo.Context, code response.Code, err error, errorMsg string) error {

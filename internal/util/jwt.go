@@ -9,9 +9,9 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-func NewJWTConfig() middleware.JWTConfig {
+func DefaultJWTConfig() middleware.JWTConfig {
 	config := middleware.JWTConfig{
-		AuthScheme: "Token",
+		SigningKey: viper.GetString("JWT_SECRET"),
 	}
 
 	return config

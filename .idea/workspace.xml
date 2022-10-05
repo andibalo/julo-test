@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="create init wallet endpoint">
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="return token if wallet already exist init endpoint">
+      <change afterPath="$PROJECT_DIR$/internal/model/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/v1/init_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/init_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/util/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/util/jwt.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +96,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init app skeleton" />
     <MESSAGE value="create init wallet endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="create init wallet endpoint" />
+    <MESSAGE value="return token if wallet already exist init endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="return token if wallet already exist init endpoint" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -109,6 +114,16 @@
           <url>file://$PROJECT_DIR$/internal/storage/repositories/wallet.go</url>
           <line>61</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/util/jwt.go</url>
+          <line>21</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/util/jwt.go</url>
+          <line>26</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
