@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"errors"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 	voerrors "julo-test/internal/apperrors"
@@ -56,12 +55,6 @@ func (h *InitController) InitializeWallet(c echo.Context) error {
 	code, token, err := h.walletService.CreateWallet(initWalletReq)
 
 	if err != nil {
-		if errors.Is(err, voerrors.ErrDuplicateWallet) {
-			h.cfg.Logger().Error("InitializeWallet: wallet already exists", zap.Error(err))
-
-			return h.failedInitResponse(c, code, err, "wallet already exists")
-		}
-
 		h.cfg.Logger().Error("InitializeWallet: error creating wallet", zap.Error(err))
 
 		return h.failedInitResponse(c, code, err, "error creating wallet")

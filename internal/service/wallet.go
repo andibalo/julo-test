@@ -4,7 +4,6 @@ import (
 	"errors"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	voerrors "julo-test/internal/apperrors"
 	"julo-test/internal/constants"
 	"julo-test/internal/model"
 	"julo-test/internal/request"
@@ -39,9 +38,14 @@ func (s *walletService) CreateWallet(initWalletReq *request.InitWalletRequest) (
 
 	if existingWallet != nil {
 
-		s.config.Logger().Error("CreateWallet: wallet already exists", zap.Error(err))
-		return response.BadRequest, "", voerrors.ErrDuplicateWallet
+		jwt, err := util.GenerateToken(initWalletReq.CustomerXID)
 
+		if err != nil {
+			s.config.Logger().Error("CreateWallet: error generating jwt", zap.Error(err))
+			return response.ServerError, "", err
+		}
+
+		return response.Success, jwt, nil
 	}
 
 	if err != nil {

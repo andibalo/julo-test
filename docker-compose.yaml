@@ -13,20 +13,17 @@ services:
     ports:
       - "5050:5050"
 
-  postgres:
-    image: 'postgres:14.2'
-    ports:
-      - "5433:5432"
+  mysql:
+    image: mysql:8.0
+    container_name: privy-db
     restart: always
-    deploy:
-      mode: replicated
-      replicas: 1
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: local
-      POSTGRES_DB: julo
+      - MYSQL_DATABASE=julo_db
+      - MYSQL_ROOT_PASSWORD=test_pass
     volumes:
-      - ./db/:/var/lib/postgresql/data/
+      - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
 
 volumes:
   db:
