@@ -15,6 +15,7 @@ var (
 	ErrPermissionDenied = errors.New("permission denied")
 	ErrNotFound         = errors.New("record not found")
 	ErrDuplicateUser    = errors.New("user already exists")
+	ErrDuplicateWallet  = errors.New("wallet already exists")
 	ErrDuplicateRequest = errors.New("duplicate request")
 	ErrTimeout          = errors.New("timeout")
 	ErrConnectTimeout   = errors.New("connect timeout")
@@ -110,7 +111,7 @@ func MapErrorsToStatusCode(err error) int {
 	case errors.Is(err, ErrTimeout):
 		return http.StatusGatewayTimeout
 
-	case errors.Is(err, ErrBadRequest), errors.Is(err, ErrDuplicateUser):
+	case errors.Is(err, ErrBadRequest), errors.Is(err, ErrDuplicateWallet):
 		return http.StatusBadRequest
 
 	default:

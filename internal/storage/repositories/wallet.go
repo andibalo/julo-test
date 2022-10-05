@@ -16,9 +16,9 @@ func NewWalletRepository(db *gorm.DB) *WalletRepository {
 	}
 }
 
-func (p *WalletRepository) SaveWallet(chat *model.Wallet) error {
+func (p *WalletRepository) SaveWallet(wallet *model.Wallet) error {
 
-	err := p.db.Create(chat).Error
+	err := p.db.Create(wallet).Error
 
 	if err != nil {
 		return err
@@ -51,4 +51,17 @@ func (p *WalletRepository) GetAllWalletsByUserID(userID string) (*[]model.Wallet
 	}
 
 	return chats, nil
+}
+
+func (p *WalletRepository) GetWalletByCustID(custID string) (*model.Wallet, error) {
+
+	var wallet *model.Wallet
+
+	err := p.db.Where("owned_by = ?", custID).First(&wallet).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return wallet, nil
 }

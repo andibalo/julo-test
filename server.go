@@ -39,8 +39,9 @@ func NewServer(cfg *config.AppConfig) *Server {
 	walletHandler := v1.NewWalletController(cfg, walletService)
 	depositHandler := v1.NewDepositController(cfg, txnService)
 	withdrawalHandler := v1.NewWithdrawalController(cfg, walletService)
+	initHandler := v1.NewInitController(cfg, walletService)
 
-	registerHandlers(e, &api.HealthCheck{}, walletHandler, depositHandler, withdrawalHandler)
+	registerHandlers(e, &api.HealthCheck{}, walletHandler, depositHandler, withdrawalHandler, initHandler)
 
 	return &Server{
 		echo: e,

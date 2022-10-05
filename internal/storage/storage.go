@@ -2,7 +2,7 @@ package storage
 
 import (
 	"go.uber.org/zap"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"julo-test/internal/config"
 	"julo-test/internal/model"
@@ -17,7 +17,7 @@ var instance *gorm.DB
 type Store struct {
 	logger           *zap.Logger
 	txnRepository    *repositories.TransactionRepository
-	walletRepository *repositories.WalletRepository
+	walletRepository WalletRepository
 }
 
 func New(cfg *config.AppConfig) *Store {
@@ -41,9 +41,8 @@ func migrateDB(db *gorm.DB) {
 
 func InitDB(cfg *config.AppConfig) *gorm.DB {
 	onceDb.Do(func() {
-		databaseConfig := cfg.PgConfig()
 
-		db, err := gorm.Open(postgres.Open(databaseConfig.GetDBConnectionString()), &gorm.Config{})
+		db, err := gorm.Open(mysql.Open(cfg.StorageAddress()), &gorm.Config{})
 		if err != nil {
 			cfg.Logger().Fatal("Could not connect to database: %s", zap.Error(err))
 		}
@@ -57,4 +56,11 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 }
 
 type Storage interface {
+	CreateWallet(wallet *model.Wallet) error
+	FetchWalletByCustID(custID string) (*model.Wallet, error)
+}
+
+type WalletRepository interface {
+	GetWalletByCustID(custID string) (*model.Wallet, error)
+	SaveWallet(wallet *model.Wallet) error
 }
