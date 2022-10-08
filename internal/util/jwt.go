@@ -2,16 +2,17 @@ package util
 
 import (
 	"errors"
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/spf13/viper"
+	"julo-test/internal/model"
 	"log"
-
-	"github.com/golang-jwt/jwt"
 )
 
 func DefaultJWTConfig() middleware.JWTConfig {
 	config := middleware.JWTConfig{
-		SigningKey: viper.GetString("JWT_SECRET"),
+		Claims:     &model.Claims{},
+		SigningKey: []byte(viper.GetString("JWT_SECRET")),
 	}
 
 	return config
@@ -19,8 +20,8 @@ func DefaultJWTConfig() middleware.JWTConfig {
 
 func GenerateToken(cxid string) (tokenString string, err error) {
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"cxid": cxid,
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, model.Claims{
+		CustomerXID: cxid,
 	})
 
 	tokenString, err = token.SignedString([]byte(viper.GetString("JWT_SECRET")))

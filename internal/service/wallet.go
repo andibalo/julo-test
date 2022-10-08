@@ -73,3 +73,30 @@ func (s *walletService) CreateWallet(initWalletReq *request.InitWalletRequest) (
 
 	return response.Success, jwt, nil
 }
+
+func (s *walletService) EnableWallet(custID string) (response.Code, *model.Wallet, error) {
+	s.config.Logger().Info("EnableWallet: enabling wallet")
+
+	err := s.store.UpdateWalletStatusByCustID(custID, constants.WalletEnabled)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+
+			s.config.Logger().Error("EnableWallet: wallet not found", zap.Error(err))
+			return response.NotFound, nil, err
+		}
+
+		s.config.Logger().Error("EnableWallet: error enabling wallet by cust id", zap.Error(err))
+		return response.ServerError, nil, err
+	}
+
+	wallet, err := s.store.FetchWalletByCustID(custID)
+
+	if err != nil {
+
+		s.config.Logger().Error("EnableWallet: error fetching wallet by cust id", zap.Error(err))
+		return response.ServerError, nil, err
+	}
+
+	return response.Success, wallet, nil
+}

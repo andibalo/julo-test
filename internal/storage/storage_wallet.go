@@ -9,3 +9,7 @@ func (s *Store) CreateWallet(wallet *model.Wallet) error {
 func (s *Store) FetchWalletByCustID(custID string) (*model.Wallet, error) {
 	return s.walletRepository.GetWalletByCustID(custID)
 }
+
+func (s *Store) UpdateWalletStatusByCustID(custID, status string) error {
+	return s.walletRepository.UpdateWalletStatusByCustID(custID, status)
+}

@@ -3,6 +3,7 @@ package repositories
 import (
 	"gorm.io/gorm"
 	"julo-test/internal/model"
+	"time"
 )
 
 type WalletRepository struct {
@@ -19,6 +20,18 @@ func NewWalletRepository(db *gorm.DB) *WalletRepository {
 func (p *WalletRepository) SaveWallet(wallet *model.Wallet) error {
 
 	err := p.db.Create(wallet).Error
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *WalletRepository) UpdateWalletStatusByCustID(custID, status string) error {
+
+	err := p.db.Model(&model.Wallet{}).Where("owned_by = ?", custID).Updates(
+		map[string]interface{}{"status": status, "enabled_at": time.Now()}).Error
 
 	if err != nil {
 		return err

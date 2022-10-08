@@ -58,9 +58,11 @@ func InitDB(cfg *config.AppConfig) *gorm.DB {
 type Storage interface {
 	CreateWallet(wallet *model.Wallet) error
 	FetchWalletByCustID(custID string) (*model.Wallet, error)
+	UpdateWalletStatusByCustID(custID, status string) error
 }
 
 type WalletRepository interface {
 	GetWalletByCustID(custID string) (*model.Wallet, error)
 	SaveWallet(wallet *model.Wallet) error
+	UpdateWalletStatusByCustID(custID, status string) error
 }

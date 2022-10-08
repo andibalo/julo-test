@@ -1,11 +1,16 @@
 package v1
 
 import (
+	"errors"
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"go.uber.org/zap"
+	"gorm.io/gorm"
 	voerrors "julo-test/internal/apperrors"
 	"julo-test/internal/config"
 	"julo-test/internal/constants"
+	"julo-test/internal/model"
 	"julo-test/internal/response"
 	"julo-test/internal/service"
 	"julo-test/internal/util"
@@ -30,14 +35,45 @@ func NewWalletController(cfg config.Config, walletService service.WalletService)
 }
 
 func (h *WalletController) AddRoutes(e *echo.Echo) {
-	r := e.Group(constants.WalletBasePath, middleware.JWT([]byte(h.cfg.JWTSecret())))
+	r := e.Group(constants.WalletBasePath, middleware.JWTWithConfig(h.cfg.JWTConfig()))
 
 	r.POST("", h.EnableWallet)
 }
 
 func (h *WalletController) EnableWallet(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*model.Claims)
 
-	return c.String(http.StatusOK, "OK")
+	cxid := claims.CustomerXID
+
+	code, wallet, err := h.walletService.EnableWallet(cxid)
+	if err != nil {
+		h.cfg.Logger().Error("EnableWallet: error enabling wallet", zap.Error(err))
+
+		errorMsg := "error enabling wallet"
+
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			errorMsg = "wallet not found"
+		}
+
+		return h.failedWalletResponse(c, code, err, errorMsg)
+	}
+
+	walletInfo := response.DefaultWalletInfo{
+		ID:        wallet.ID,
+		OwnedBy:   wallet.OwnedBy,
+		Status:    wallet.Status,
+		EnabledAt: wallet.EnabledAt,
+		Balance:   wallet.Balance,
+	}
+
+	enableWalletResp := response.EnableWalletResponse{Wallet: walletInfo}
+
+	resp := response.NewResponse(code, enableWalletResp)
+
+	resp.SetResponseMessage("Successfully enabled wallet")
+
+	return c.JSON(http.StatusOK, resp)
 }
 
 func (h *WalletController) failedWalletResponse(c echo.Context, code response.Code, err error, errorMsg string) error {
