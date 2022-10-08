@@ -120,3 +120,30 @@ func (s *walletService) EnableWallet(custID string) (response.Code, *model.Walle
 
 	return response.Success, wallet, nil
 }
+
+func (s *walletService) DisableWallet(custID string) (response.Code, *model.Wallet, error) {
+	s.config.Logger().Info("DisableWallet: disabling wallet")
+
+	err := s.store.UpdateWalletStatusByCustID(custID, constants.WalletDisabled)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+
+			s.config.Logger().Error("DisableWallet: wallet not found", zap.Error(err))
+			return response.NotFound, nil, err
+		}
+
+		s.config.Logger().Error("DisableWallet: error disabling wallet by cust id", zap.Error(err))
+		return response.ServerError, nil, err
+	}
+
+	wallet, err := s.store.FetchWalletByCustID(custID)
+
+	if err != nil {
+
+		s.config.Logger().Error("DisableWallet: error disabling wallet by cust id", zap.Error(err))
+		return response.ServerError, nil, err
+	}
+
+	return response.Success, wallet, nil
+}

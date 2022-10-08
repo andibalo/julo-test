@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add validate wallet status middleware and add wallet disabled check to enable wallet endpoint">
-      <change afterPath="$PROJECT_DIR$/internal/dto/wallet.go" afterDir="false" />
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add fetch wallet balance endpoint">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/model/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/constants/constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/constants/constants.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/response/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/response/wallet.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/services.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +98,8 @@
     <MESSAGE value="return token if wallet already exist init endpoint" />
     <MESSAGE value="add enable endpoint wallet" />
     <MESSAGE value="add validate wallet status middleware and add wallet disabled check to enable wallet endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="add validate wallet status middleware and add wallet disabled check to enable wallet endpoint" />
+    <MESSAGE value="add fetch wallet balance endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="add fetch wallet balance endpoint" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -113,7 +114,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/storage/repositories/wallet.go</url>
-          <line>74</line>
+          <line>82</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

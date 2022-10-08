@@ -16,6 +16,18 @@ type FetchWalletBalanceResponse struct {
 	Wallet DefaultWalletInfo `json:"wallet"`
 }
 
+type DisableWalletResponse struct {
+	Wallet DisableWalletDetail `json:"wallet"`
+}
+
+type DisableWalletDetail struct {
+	ID         string    `json:"id"`
+	OwnedBy    string    `json:"owned_by"`
+	Status     string    `json:"status"`
+	DisabledAt time.Time `json:"disabled_at"`
+	Balance    int       `json:"balance"`
+}
+
 type DefaultWalletInfo struct {
 	ID        string    `json:"id"`
 	OwnedBy   string    `json:"owned_by"`

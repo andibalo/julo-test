@@ -11,7 +11,7 @@ import (
 	"net/http"
 )
 
-func ValidateWalletDisabled(store storage.Storage) echo.MiddlewareFunc {
+func ValidateWalletIsDisabled(store storage.Storage) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 
@@ -40,7 +40,7 @@ func ValidateWalletDisabled(store storage.Storage) echo.MiddlewareFunc {
 	}
 }
 
-func ValidateWalletEnabled(store storage.Storage) echo.MiddlewareFunc {
+func ValidateWalletIsEnabled(store storage.Storage) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 
@@ -59,7 +59,7 @@ func ValidateWalletEnabled(store storage.Storage) echo.MiddlewareFunc {
 				return echo.NewHTTPError(http.StatusInternalServerError, "Error fetching wallet")
 			}
 
-			if wallet.Status == constants.WalletEnabled {
+			if wallet.Status == constants.WalletDisabled {
 				return echo.NewHTTPError(http.StatusForbidden, "wallet needs to be enabled to use this resource")
 			}
 

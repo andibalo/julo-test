@@ -10,6 +10,7 @@ import (
 	voerrors "julo-test/internal/apperrors"
 	"julo-test/internal/config"
 	"julo-test/internal/constants"
+	customMiddleware "julo-test/internal/middlewares"
 	"julo-test/internal/model"
 	"julo-test/internal/response"
 	"julo-test/internal/service"
@@ -40,8 +41,11 @@ func NewWalletController(cfg config.Config, walletService service.WalletService,
 func (h *WalletController) AddRoutes(e *echo.Echo) {
 	r := e.Group(constants.WalletBasePath, middleware.JWTWithConfig(h.cfg.JWTConfig()))
 
-	r.POST("", h.EnableWallet)
-	r.GET("", h.GetWalletBalance)
+	r.POST("", h.EnableWallet, customMiddleware.ValidateWalletIsDisabled(h.store))
+	r.GET("", h.GetWalletBalance, customMiddleware.ValidateWalletIsEnabled(h.store))
+	r.PATCH("", h.DisableWallet)
+	r.POST(constants.DepositBasePath, h.DisableWallet)
+	r.POST(constants.WithdrawalBasePath, h.DisableWallet)
 }
 
 func (h *WalletController) GetWalletBalance(c echo.Context) error {
@@ -76,6 +80,42 @@ func (h *WalletController) GetWalletBalance(c echo.Context) error {
 	resp := response.NewResponse(code, enableWalletResp)
 
 	resp.SetResponseMessage("Successfully fetched wallet")
+
+	return c.JSON(http.StatusOK, resp)
+}
+
+func (h *WalletController) DisableWallet(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*model.Claims)
+
+	cxid := claims.CustomerXID
+
+	code, wallet, err := h.walletService.DisableWallet(cxid)
+	if err != nil {
+		h.cfg.Logger().Error("DisableWallet: error disabling wallet", zap.Error(err))
+
+		errorMsg := "error disabling wallet"
+
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			errorMsg = "wallet not found"
+		}
+
+		return h.failedWalletResponse(c, code, err, errorMsg)
+	}
+
+	walletInfo := response.DisableWalletDetail{
+		ID:         wallet.ID,
+		OwnedBy:    wallet.OwnedBy,
+		Status:     wallet.Status,
+		DisabledAt: wallet.DisabledAt.Time,
+		Balance:    wallet.Balance,
+	}
+
+	enableWalletResp := response.DisableWalletResponse{Wallet: walletInfo}
+
+	resp := response.NewResponse(code, enableWalletResp)
+
+	resp.SetResponseMessage("Successfully disabled wallet")
 
 	return c.JSON(http.StatusOK, resp)
 }

@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"gorm.io/gorm"
+	"julo-test/internal/constants"
 	"julo-test/internal/model"
 	"time"
 )
@@ -30,8 +31,15 @@ func (p *WalletRepository) SaveWallet(wallet *model.Wallet) error {
 
 func (p *WalletRepository) UpdateWalletStatusByCustID(custID, status string) error {
 
-	err := p.db.Model(&model.Wallet{}).Where("owned_by = ?", custID).Updates(
-		map[string]interface{}{"status": status, "enabled_at": time.Now()}).Error
+	updatesMap := map[string]interface{}{"status": status}
+
+	if status == constants.WalletEnabled {
+		updatesMap["enabled_at"] = time.Now()
+	} else {
+		updatesMap["disabled_at"] = time.Now()
+	}
+
+	err := p.db.Model(&model.Wallet{}).Where("owned_by = ?", custID).Updates(updatesMap).Error
 
 	if err != nil {
 		return err
