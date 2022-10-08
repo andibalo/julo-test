@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add deposit to wallet endpoint">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/v1/deposit_controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/api/v1/withdrawal_controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/apperrors/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/apperrors/errors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/request/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/request/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/response/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/response/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/services.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/storage_wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage_wallet.go" afterDir="false" />
-    </list>
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="create withdraw from wallet endpoint" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,7 +110,8 @@
     <MESSAGE value="add fetch wallet balance endpoint" />
     <MESSAGE value="add disable wallet endpoint" />
     <MESSAGE value="add deposit to wallet endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="add deposit to wallet endpoint" />
+    <MESSAGE value="create withdraw from wallet endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="create withdraw from wallet endpoint" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

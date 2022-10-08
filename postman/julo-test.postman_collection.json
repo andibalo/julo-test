@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "f82592fc-ebd6-456d-80f4-1f3f7180b547",
+		"name": "julo-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Disable Wallet",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "0.0.0.0:5060/api/v1/wallet",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5060",
+					"path": [
+						"api",
+						"v1",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get wallet balance",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "0.0.0.0:5060/api/v1/wallet",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5060",
+					"path": [
+						"api",
+						"v1",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable wallet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "0.0.0.0:5060/api/v1/wallet",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5060",
+					"path": [
+						"api",
+						"v1",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Initialize wallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer_xid\" : \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:5060/api/v1/init",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5060",
+					"path": [
+						"api",
+						"v1",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit to wallet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 30000,\n    \"reference_id\": \"ref-desdede\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:5060/api/v1/wallet/deposits",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5060",
+					"path": [
+						"api",
+						"v1",
+						"wallet",
+						"deposits"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Withdraw from wallet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 10000,\n    \"reference_id\": \"ref-121221\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:5060/api/v1/wallet/withdrawals",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5060",
+					"path": [
+						"api",
+						"v1",
+						"wallet",
+						"withdrawals"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
