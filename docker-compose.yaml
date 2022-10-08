@@ -13,9 +13,18 @@ services:
     ports:
       - "5050:5050"
 
+  cache:
+    image: redis:7.0
+    container_name: julo-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
+
   mysql:
     image: mysql:8.0
-    container_name: privy-db
+    container_name: julo-db
     restart: always
     environment:
       - MYSQL_DATABASE=julo_db
@@ -27,3 +36,6 @@ services:
 
 volumes:
   db:
+    driver: local
+  cache:
+    driver: local

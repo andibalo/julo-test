@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"context"
 	"errors"
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
@@ -166,7 +167,29 @@ func (h *WalletController) GetWalletBalance(c echo.Context) error {
 
 	cxid := claims.CustomerXID
 
+	wallet := &model.Wallet{}
+
+	cachedWallet, err := h.cfg.RedisClient().Get(context.Background(), constants.GetUserWalletBalanceRedisKey(cxid)).Result()
+	if err != nil {
+		h.cfg.Logger().Error("GetWalletBalance: error fetching wallet balance from cache", zap.Error(err))
+	}
+
+	if cachedWallet != "" {
+		h.cfg.Logger().Info("GetWalletBalance: fetched wallet from cache")
+
+		if err = util.Deserialize(cachedWallet, wallet); err != nil {
+			h.cfg.Logger().Error("GetWalletBalance: failed deserializing user wallet cache", zap.Error(err))
+
+			return h.failedWalletResponse(c, response.ServerError, err, "failed deserializing user wallet cache")
+		}
+
+		resp := h.buildGetWalletBalanceResp(wallet, response.Success, "Successfully fetched wallet")
+
+		return c.JSON(http.StatusOK, resp)
+	}
+
 	code, wallet, err := h.walletService.FetchWalletBalance(cxid)
+
 	if err != nil {
 		h.cfg.Logger().Error("GetWalletBalance: error fetching wallet balance", zap.Error(err))
 
@@ -178,6 +201,29 @@ func (h *WalletController) GetWalletBalance(c echo.Context) error {
 
 		return h.failedWalletResponse(c, code, err, errorMsg)
 	}
+
+	serializedWallet, err := util.Serialize(wallet)
+	if err != nil {
+		h.cfg.Logger().Error("GetWalletBalance: failed serializing user wallet", zap.Error(err))
+	}
+
+	if serializedWallet != "" {
+		cacheKey := constants.GetUserWalletBalanceRedisKey(cxid)
+		if err := h.cfg.RedisClient().Set(context.Background(), cacheKey,
+			serializedWallet, h.cfg.RedisGetUserWalletBalanceTTL()).Err(); err != nil {
+
+			h.cfg.Logger().Error("GetWalletBalance: failed caching user wallet", zap.Error(err))
+
+			return err
+		}
+	}
+
+	resp := h.buildGetWalletBalanceResp(wallet, code, "Successfully fetched wallet")
+
+	return c.JSON(http.StatusOK, resp)
+}
+
+func (h *WalletController) buildGetWalletBalanceResp(wallet *model.Wallet, code response.Code, msg string) *response.Wrapper {
 
 	walletInfo := response.DefaultWalletInfo{
 		ID:        wallet.ID,
@@ -191,9 +237,9 @@ func (h *WalletController) GetWalletBalance(c echo.Context) error {
 
 	resp := response.NewResponse(code, enableWalletResp)
 
-	resp.SetResponseMessage("Successfully fetched wallet")
+	resp.SetResponseMessage(msg)
 
-	return c.JSON(http.StatusOK, resp)
+	return resp
 }
 
 func (h *WalletController) DisableWallet(c echo.Context) error {

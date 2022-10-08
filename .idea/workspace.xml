@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="create withdraw from wallet endpoint" />
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="refactoring and add postman collection">
+      <change afterPath="$PROJECT_DIR$/internal/config/config_redis.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/constants/redis.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/util/strings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/mocks/cake_service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/storage/mocks/storage.go" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,6 +65,9 @@
       <recent name="$PROJECT_DIR$/internal/util" />
       <recent name="$PROJECT_DIR$/internal" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/postman" />
     </key>
   </component>
   <component name="RunManager">
@@ -111,7 +128,8 @@
     <MESSAGE value="add disable wallet endpoint" />
     <MESSAGE value="add deposit to wallet endpoint" />
     <MESSAGE value="create withdraw from wallet endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="create withdraw from wallet endpoint" />
+    <MESSAGE value="refactoring and add postman collection" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring and add postman collection" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

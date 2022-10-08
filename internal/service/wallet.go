@@ -187,7 +187,7 @@ func (s *walletService) CreateWallet(initWalletReq *request.InitWalletRequest) (
 }
 
 func (s *walletService) FetchWalletBalance(custID string) (response.Code, *model.Wallet, error) {
-	s.config.Logger().Info("FetchWalletBalance: enabling wallet")
+	s.config.Logger().Info("FetchWalletBalance: fetching wallet balance")
 
 	wallet, err := s.store.FetchWalletByCustID(custID)
 
