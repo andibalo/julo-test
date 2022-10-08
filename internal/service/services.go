@@ -13,6 +13,7 @@ type WalletService interface {
 	EnableWallet(custID string) (response.Code, *model.Wallet, error)
 	FetchWalletBalance(custID string) (response.Code, *model.Wallet, error)
 	DisableWallet(custID string) (response.Code, *model.Wallet, error)
+	DepositWallet(amount int, custID, refID string) (response.Code, *model.Wallet, *model.Transaction, error)
 }
 
 type TransactionService interface {

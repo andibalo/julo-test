@@ -1,6 +1,7 @@
 package service
 
 import (
+	"database/sql"
 	"errors"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -11,6 +12,7 @@ import (
 	"julo-test/internal/response"
 	"julo-test/internal/storage"
 	"julo-test/internal/util"
+	"time"
 )
 
 type walletService struct {
@@ -24,6 +26,58 @@ func NewWalletService(config Config, store storage.Storage) *walletService {
 		config: config,
 		store:  store,
 	}
+}
+
+func (s *walletService) DepositWallet(amount int, custID, refID string) (response.Code, *model.Wallet, *model.Transaction, error) {
+	s.config.Logger().Info("DepositWallet: enabling wallet")
+
+	wallet, err := s.store.FetchWalletByCustID(custID)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			s.config.Logger().Error("DepositWallet: wallet not found", zap.Error(err))
+			return response.NotFound, nil, nil, voerrors.ErrNotFound
+		}
+
+		s.config.Logger().Error("DepositWallet: error fetching wallet by cust id", zap.Error(err))
+		return response.ServerError, nil, nil, err
+	}
+
+	existingTransaction, err := s.store.FetchTransactionByRefID(refID)
+
+	if existingTransaction != nil {
+		s.config.Logger().Error("DepositWallet: duplicate reference id", zap.Error(err))
+		return response.BadRequest, nil, nil, voerrors.ErrDuplicateRefID
+	}
+
+	if err != nil {
+		if !errors.Is(err, gorm.ErrRecordNotFound) {
+			s.config.Logger().Error("DepositWallet: error fetching transaction by ref id", zap.Error(err))
+			return response.ServerError, nil, nil, err
+		}
+	}
+
+	txn := &model.Transaction{
+		TxnType:     constants.TxnDeposit,
+		DepositedBy: custID,
+		DepositedAt: sql.NullTime{Time: time.Now(), Valid: true},
+		Status:      "success",
+		Amount:      amount,
+		ReferenceId: refID,
+	}
+
+	newBalance := wallet.Balance + amount
+
+	err = s.store.DepositWalletByCustID(custID, newBalance, txn)
+
+	if err != nil {
+		s.config.Logger().Error("DepositWallet: error depositing to wallt", zap.Error(err))
+		return response.ServerError, nil, nil, err
+	}
+
+	wallet.Balance = newBalance
+
+	return response.Success, wallet, txn, nil
 }
 
 func (s *walletService) CreateWallet(initWalletReq *request.InitWalletRequest) (response.Code, string, error) {

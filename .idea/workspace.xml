@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add fetch wallet balance endpoint">
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add disable wallet endpoint">
+      <change afterPath="$PROJECT_DIR$/internal/constants/transaction.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/dto/transaction.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/storage/storage_transaction.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/constants/constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/constants/constants.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/apperrors/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/apperrors/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/transaction.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/request/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/request/wallet.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/response/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/response/wallet.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/services.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/storage/repositories/transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/transaction.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/storage/storage_wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage_wallet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +108,8 @@
     <MESSAGE value="add enable endpoint wallet" />
     <MESSAGE value="add validate wallet status middleware and add wallet disabled check to enable wallet endpoint" />
     <MESSAGE value="add fetch wallet balance endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="add fetch wallet balance endpoint" />
+    <MESSAGE value="add disable wallet endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="add disable wallet endpoint" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -114,7 +124,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/storage/repositories/wallet.go</url>
-          <line>82</line>
+          <line>106</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

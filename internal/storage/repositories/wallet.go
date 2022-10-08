@@ -29,6 +29,30 @@ func (p *WalletRepository) SaveWallet(wallet *model.Wallet) error {
 	return nil
 }
 
+func (p *WalletRepository) DepositWalletByCustID(custID string, balance int, transaction *model.Transaction) error {
+
+	err := p.db.Transaction(func(tx *gorm.DB) error {
+		// do some database operations in the transaction (use 'tx' from this point, not 'db')
+		if err := tx.Model(&model.Wallet{}).Where("owned_by = ?", custID).Update("balance", balance).Error; err != nil {
+			// return any error will rollback
+			return err
+		}
+
+		if err := tx.Create(transaction).Error; err != nil {
+			return err
+		}
+
+		// return nil will commit the whole transaction
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (p *WalletRepository) UpdateWalletStatusByCustID(custID, status string) error {
 
 	updatesMap := map[string]interface{}{"status": status}

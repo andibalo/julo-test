@@ -16,6 +16,7 @@ var (
 	ErrNotFound         = errors.New("record not found")
 	ErrDuplicateUser    = errors.New("user already exists")
 	ErrDuplicateWallet  = errors.New("wallet already exists")
+	ErrDuplicateRefID   = errors.New("duplicate reference id")
 	ErrDuplicateRequest = errors.New("duplicate request")
 	ErrTimeout          = errors.New("timeout")
 	ErrConnectTimeout   = errors.New("connect timeout")
@@ -111,7 +112,7 @@ func MapErrorsToStatusCode(err error) int {
 	case errors.Is(err, ErrTimeout):
 		return http.StatusGatewayTimeout
 
-	case errors.Is(err, ErrBadRequest), errors.Is(err, ErrDuplicateWallet):
+	case errors.Is(err, ErrBadRequest), errors.Is(err, ErrDuplicateWallet), errors.Is(err, ErrDuplicateRefID):
 		return http.StatusBadRequest
 
 	default:

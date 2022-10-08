@@ -12,6 +12,7 @@ import (
 	"julo-test/internal/constants"
 	customMiddleware "julo-test/internal/middlewares"
 	"julo-test/internal/model"
+	"julo-test/internal/request"
 	"julo-test/internal/response"
 	"julo-test/internal/service"
 	"julo-test/internal/storage"
@@ -22,17 +23,20 @@ import (
 type WalletController struct {
 	cfg           config.Config
 	walletService service.WalletService
+	txnService    service.TransactionService
 	validator     util.Validator
 	store         storage.Storage
 }
 
-func NewWalletController(cfg config.Config, walletService service.WalletService, store storage.Storage) *WalletController {
+func NewWalletController(cfg config.Config, walletService service.WalletService, txnService service.TransactionService,
+	store storage.Storage) *WalletController {
 
 	validator := util.GetNewValidator()
 
 	return &WalletController{
 		cfg:           cfg,
 		walletService: walletService,
+		txnService:    txnService,
 		validator:     validator,
 		store:         store,
 	}
@@ -43,9 +47,61 @@ func (h *WalletController) AddRoutes(e *echo.Echo) {
 
 	r.POST("", h.EnableWallet, customMiddleware.ValidateWalletIsDisabled(h.store))
 	r.GET("", h.GetWalletBalance, customMiddleware.ValidateWalletIsEnabled(h.store))
-	r.PATCH("", h.DisableWallet)
-	r.POST(constants.DepositBasePath, h.DisableWallet)
+	r.PATCH("", h.DisableWallet, customMiddleware.ValidateWalletIsEnabled(h.store))
+	r.POST(constants.DepositBasePath, h.DepositWallet, customMiddleware.ValidateWalletIsEnabled(h.store))
 	r.POST(constants.WithdrawalBasePath, h.DisableWallet)
+}
+
+func (h *WalletController) DepositWallet(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*model.Claims)
+
+	cxid := claims.CustomerXID
+
+	depositWalletReq := &request.DepositWalletRequest{}
+
+	if err := c.Bind(depositWalletReq); err != nil {
+		h.cfg.Logger().Error("DepositWallet: error binding dpeeosit wallet request", zap.Error(err))
+
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	err := h.validator.Validate(depositWalletReq)
+
+	if err != nil {
+		validationErrorMessage := err.Error()
+		return h.failedWalletResponse(c, response.BadRequest, err, validationErrorMessage)
+	}
+
+	code, wallet, txn, err := h.walletService.DepositWallet(depositWalletReq.Amount, cxid, depositWalletReq.RefID)
+	if err != nil {
+		h.cfg.Logger().Error("DepositWallet: error depositing to wallet", zap.Error(err))
+
+		errorMsg := "error depositing to wallet"
+
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			errorMsg = "wallet not found"
+		}
+
+		return h.failedWalletResponse(c, code, err, errorMsg)
+	}
+
+	depositInfo := response.DepositWalletDetail{
+		ID:          txn.ID,
+		DepositedBy: wallet.OwnedBy,
+		Status:      txn.Status,
+		DepositedAt: txn.DepositedAt.Time,
+		Amount:      txn.Amount,
+		RefID:       txn.ReferenceId,
+	}
+
+	depositWalletResp := response.DepositWalletResponse{Deposit: depositInfo}
+
+	resp := response.NewResponse(code, depositWalletResp)
+
+	resp.SetResponseMessage("Successfully deposited to wallet")
+
+	return c.JSON(http.StatusOK, resp)
 }
 
 func (h *WalletController) GetWalletBalance(c echo.Context) error {

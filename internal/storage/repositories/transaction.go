@@ -16,15 +16,28 @@ func NewTransactionRepository(db *gorm.DB) *TransactionRepository {
 	}
 }
 
-func (p *TransactionRepository) SaveTransaction(chat *model.Transaction) error {
+func (p *TransactionRepository) SaveTransaction(transaction *model.Transaction) error {
 
-	err := p.db.Create(chat).Error
+	err := p.db.Create(transaction).Error
 
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (p *TransactionRepository) GetTransactionByRefID(refID string) (*model.Transaction, error) {
+
+	var transaction *model.Transaction
+
+	err := p.db.Where("reference_id = ?", refID).First(&transaction).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return transaction, nil
 }
 
 func (p *TransactionRepository) GetAllTransactions() (*[]model.Transaction, error) {
