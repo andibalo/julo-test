@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="return token if wallet already exist init endpoint">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add enable endpoint wallet">
+      <change afterPath="$PROJECT_DIR$/internal/middlewares/wallet_status_validator.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/response/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/response/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/services.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/storage_wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage_wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/util/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/util/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/middlewares/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +94,8 @@
     <MESSAGE value="init app skeleton" />
     <MESSAGE value="create init wallet endpoint" />
     <MESSAGE value="return token if wallet already exist init endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="return token if wallet already exist init endpoint" />
+    <MESSAGE value="add enable endpoint wallet" />
+    <option name="LAST_COMMIT_MESSAGE" value="add enable endpoint wallet" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -131,11 +127,6 @@
           <url>file://$PROJECT_DIR$/internal/service/services.go</url>
           <line>12</line>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cmd/main.go</url>
-          <line>9</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

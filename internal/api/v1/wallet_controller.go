@@ -10,9 +10,11 @@ import (
 	voerrors "julo-test/internal/apperrors"
 	"julo-test/internal/config"
 	"julo-test/internal/constants"
+	customMiddleware "julo-test/internal/middlewares"
 	"julo-test/internal/model"
 	"julo-test/internal/response"
 	"julo-test/internal/service"
+	"julo-test/internal/storage"
 	"julo-test/internal/util"
 	"net/http"
 )
@@ -21,9 +23,10 @@ type WalletController struct {
 	cfg           config.Config
 	walletService service.WalletService
 	validator     util.Validator
+	store         storage.Storage
 }
 
-func NewWalletController(cfg config.Config, walletService service.WalletService) *WalletController {
+func NewWalletController(cfg config.Config, walletService service.WalletService, store storage.Storage) *WalletController {
 
 	validator := util.GetNewValidator()
 
@@ -31,11 +34,12 @@ func NewWalletController(cfg config.Config, walletService service.WalletService)
 		cfg:           cfg,
 		walletService: walletService,
 		validator:     validator,
+		store:         store,
 	}
 }
 
 func (h *WalletController) AddRoutes(e *echo.Echo) {
-	r := e.Group(constants.WalletBasePath, middleware.JWTWithConfig(h.cfg.JWTConfig()))
+	r := e.Group(constants.WalletBasePath, middleware.JWTWithConfig(h.cfg.JWTConfig()), customMiddleware.ValidateWalletDisabled(h.store))
 
 	r.POST("", h.EnableWallet)
 }
