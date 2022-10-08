@@ -12,19 +12,19 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdC0yIn0.NcwgB_WEaQi4nl3tLUVFf2w_a8LZhQXs5LbCvuPhTYo",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "0.0.0.0:5060/api/v1/wallet",
+					"raw": "0.0.0.0:5050/api/v1/wallet",
 					"host": [
 						"0",
 						"0",
 						"0",
 						"0"
 					],
-					"port": "5060",
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",
@@ -41,19 +41,19 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdC0yIn0.NcwgB_WEaQi4nl3tLUVFf2w_a8LZhQXs5LbCvuPhTYo",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "0.0.0.0:5060/api/v1/wallet",
+					"raw": "0.0.0.0:5050/api/v1/wallet",
 					"host": [
 						"0",
 						"0",
 						"0",
 						"0"
 					],
-					"port": "5060",
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",
@@ -70,19 +70,19 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdC0yIn0.NcwgB_WEaQi4nl3tLUVFf2w_a8LZhQXs5LbCvuPhTYo",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "0.0.0.0:5060/api/v1/wallet",
+					"raw": "0.0.0.0:5050/api/v1/wallet",
 					"host": [
 						"0",
 						"0",
 						"0",
 						"0"
 					],
-					"port": "5060",
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",
@@ -99,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"customer_xid\" : \"test\"\n}",
+					"raw": "{\n    \"customer_xid\" : \"test-2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -107,14 +107,14 @@
 					}
 				},
 				"url": {
-					"raw": "0.0.0.0:5060/api/v1/init",
+					"raw": "0.0.0.0:5050/api/v1/init",
 					"host": [
 						"0",
 						"0",
 						"0",
 						"0"
 					],
-					"port": "5060",
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",
@@ -131,7 +131,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdC0yIn0.NcwgB_WEaQi4nl3tLUVFf2w_a8LZhQXs5LbCvuPhTYo",
 						"type": "default"
 					}
 				],
@@ -145,14 +145,14 @@
 					}
 				},
 				"url": {
-					"raw": "0.0.0.0:5060/api/v1/wallet/deposits",
+					"raw": "0.0.0.0:5050/api/v1/wallet/deposits",
 					"host": [
 						"0",
 						"0",
 						"0",
 						"0"
 					],
-					"port": "5060",
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",
@@ -177,13 +177,13 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdC0yIn0.NcwgB_WEaQi4nl3tLUVFf2w_a8LZhQXs5LbCvuPhTYo",
 						"type": "default"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"amount\": 10000,\n    \"reference_id\": \"ref-121221\"\n}",
+					"raw": "{\n    \"amount\": 500,\n    \"reference_id\": \"ref-12122d1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -191,14 +191,14 @@
 					}
 				},
 				"url": {
-					"raw": "0.0.0.0:5060/api/v1/wallet/withdrawals",
+					"raw": "0.0.0.0:5050/api/v1/wallet/withdrawals",
 					"host": [
 						"0",
 						"0",
 						"0",
 						"0"
 					],
-					"port": "5060",
+					"port": "5050",
 					"path": [
 						"api",
 						"v1",
@@ -208,7 +208,7 @@
 					"query": [
 						{
 							"key": "",
-							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeGlkIjoidGVzdCJ9.AnC3DD1ZgbltBvQ9CHpDppk71Zko30JQmiSq4MyiVjc",
+							"value": "",
 							"disabled": true
 						}
 					]
