@@ -11,6 +11,7 @@ import (
 type WalletService interface {
 	CreateWallet(initWalletReq *request.InitWalletRequest) (response.Code, string, error)
 	EnableWallet(custID string) (response.Code, *model.Wallet, error)
+	FetchWalletBalance(custID string) (response.Code, *model.Wallet, error)
 }
 
 type TransactionService interface {
