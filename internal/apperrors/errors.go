@@ -8,22 +8,23 @@ import (
 )
 
 var (
-	ErrBadRequest       = errors.New("request is incomplete or invalid")
-	ErrUnprocessable    = fmt.Errorf("request is complete but invalid - %w", ErrBadRequest)
-	ErrInvalidParam     = errors.New("invalid input param(s)")
-	ErrUnauthorized     = errors.New("authorization missing or bad")
-	ErrPermissionDenied = errors.New("permission denied")
-	ErrNotFound         = errors.New("record not found")
-	ErrDuplicateUser    = errors.New("user already exists")
-	ErrDuplicateWallet  = errors.New("wallet already exists")
-	ErrDuplicateRefID   = errors.New("duplicate reference id")
-	ErrDuplicateRequest = errors.New("duplicate request")
-	ErrTimeout          = errors.New("timeout")
-	ErrConnectTimeout   = errors.New("connect timeout")
-	ErrRateLimited      = errors.New("rate limited")
-	ErrUserError        = errors.New("user error")
-	ErrUnexpectedError  = errors.New("unexpected error")
-	ErrTransientError   = errors.New("transient application error")
+	ErrBadRequest          = errors.New("request is incomplete or invalid")
+	ErrUnprocessable       = fmt.Errorf("request is complete but invalid - %w", ErrBadRequest)
+	ErrInvalidParam        = errors.New("invalid input param(s)")
+	ErrUnauthorized        = errors.New("authorization missing or bad")
+	ErrPermissionDenied    = errors.New("permission denied")
+	ErrNotFound            = errors.New("record not found")
+	ErrInsufficientBalance = errors.New("not enough balance")
+	ErrDuplicateUser       = errors.New("user already exists")
+	ErrDuplicateWallet     = errors.New("wallet already exists")
+	ErrDuplicateRefID      = errors.New("duplicate reference id")
+	ErrDuplicateRequest    = errors.New("duplicate request")
+	ErrTimeout             = errors.New("timeout")
+	ErrConnectTimeout      = errors.New("connect timeout")
+	ErrRateLimited         = errors.New("rate limited")
+	ErrUserError           = errors.New("user error")
+	ErrUnexpectedError     = errors.New("unexpected error")
+	ErrTransientError      = errors.New("transient application error")
 )
 
 func MapResponseCodeToErrors(code response.Code) error {
@@ -112,7 +113,8 @@ func MapErrorsToStatusCode(err error) int {
 	case errors.Is(err, ErrTimeout):
 		return http.StatusGatewayTimeout
 
-	case errors.Is(err, ErrBadRequest), errors.Is(err, ErrDuplicateWallet), errors.Is(err, ErrDuplicateRefID):
+	case errors.Is(err, ErrBadRequest), errors.Is(err, ErrInsufficientBalance),
+		errors.Is(err, ErrDuplicateWallet), errors.Is(err, ErrDuplicateRefID):
 		return http.StatusBadRequest
 
 	default:

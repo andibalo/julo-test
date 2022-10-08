@@ -4,23 +4,19 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add disable wallet endpoint">
-      <change afterPath="$PROJECT_DIR$/internal/constants/transaction.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/dto/transaction.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/storage/storage_transaction.go" afterDir="false" />
+    <list default="true" id="ecefac1f-cd00-4a70-a42b-ae1674ce354a" name="Changes" comment="add deposit to wallet endpoint">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/v1/deposit_controller.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/api/v1/wallet_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/api/v1/withdrawal_controller.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/apperrors/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/apperrors/errors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/model/transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/transaction.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/request/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/request/wallet.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/response/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/response/wallet.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/services.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/service/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/storage/repositories/transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/transaction.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/repositories/wallet.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/storage/storage_wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/storage_wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +67,14 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="julo-test" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build julo-test/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="julo-test" />
       <working_directory value="$PROJECT_DIR$" />
@@ -78,6 +82,15 @@
       <package value="julo-test/cmd" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/cmd/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="julo-test" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -109,7 +122,8 @@
     <MESSAGE value="add validate wallet status middleware and add wallet disabled check to enable wallet endpoint" />
     <MESSAGE value="add fetch wallet balance endpoint" />
     <MESSAGE value="add disable wallet endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="add disable wallet endpoint" />
+    <MESSAGE value="add deposit to wallet endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="add deposit to wallet endpoint" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

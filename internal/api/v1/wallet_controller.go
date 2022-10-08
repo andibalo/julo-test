@@ -49,7 +49,63 @@ func (h *WalletController) AddRoutes(e *echo.Echo) {
 	r.GET("", h.GetWalletBalance, customMiddleware.ValidateWalletIsEnabled(h.store))
 	r.PATCH("", h.DisableWallet, customMiddleware.ValidateWalletIsEnabled(h.store))
 	r.POST(constants.DepositBasePath, h.DepositWallet, customMiddleware.ValidateWalletIsEnabled(h.store))
-	r.POST(constants.WithdrawalBasePath, h.DisableWallet)
+	r.POST(constants.WithdrawalBasePath, h.WithdrawFromWallet, customMiddleware.ValidateWalletIsEnabled(h.store))
+}
+
+func (h *WalletController) WithdrawFromWallet(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(*model.Claims)
+
+	cxid := claims.CustomerXID
+
+	withdrawWalletReq := &request.WithdrawWalletRequest{}
+
+	if err := c.Bind(withdrawWalletReq); err != nil {
+		h.cfg.Logger().Error("WithdrawFromWallet: error binding withdraw from wallet request", zap.Error(err))
+
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	err := h.validator.Validate(withdrawWalletReq)
+
+	if err != nil {
+		validationErrorMessage := err.Error()
+		return h.failedWalletResponse(c, response.BadRequest, err, validationErrorMessage)
+	}
+
+	code, wallet, txn, err := h.walletService.WithdrawFromWallet(withdrawWalletReq.Amount, cxid, withdrawWalletReq.RefID)
+	if err != nil {
+		h.cfg.Logger().Error("WithdrawFromWallet: error depositing to wallet", zap.Error(err))
+
+		errorMsg := "error withdrawing from wallet"
+
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			errorMsg = "wallet not found"
+		}
+
+		if errors.Is(err, voerrors.ErrInsufficientBalance) {
+			errorMsg = "not enough balance"
+		}
+
+		return h.failedWalletResponse(c, code, err, errorMsg)
+	}
+
+	withdrawInfo := response.WithdrawWalletDetail{
+		ID:          txn.ID,
+		WithdrawnBy: wallet.OwnedBy,
+		Status:      txn.Status,
+		WithdrawnAt: txn.WithdrawnAt.Time,
+		Amount:      txn.Amount,
+		RefID:       txn.ReferenceId,
+	}
+
+	withdrawWalletResp := response.WithdrawWalletResponse{Withdrawal: withdrawInfo}
+
+	resp := response.NewResponse(code, withdrawWalletResp)
+
+	resp.SetResponseMessage("Successfully withdrawn from wallet")
+
+	return c.JSON(http.StatusOK, resp)
 }
 
 func (h *WalletController) DepositWallet(c echo.Context) error {

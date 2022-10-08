@@ -24,12 +24,25 @@ type DepositWalletResponse struct {
 	Deposit DepositWalletDetail `json:"deposit"`
 }
 
+type WithdrawWalletResponse struct {
+	Withdrawal WithdrawWalletDetail `json:"withdrawal"`
+}
+
 type DisableWalletDetail struct {
 	ID         string    `json:"id"`
 	OwnedBy    string    `json:"owned_by"`
 	Status     string    `json:"status"`
 	DisabledAt time.Time `json:"disabled_at"`
 	Balance    int       `json:"balance"`
+}
+
+type WithdrawWalletDetail struct {
+	ID          string    `json:"id"`
+	WithdrawnBy string    `json:"withdrawn_by"`
+	Status      string    `json:"status"`
+	WithdrawnAt time.Time `json:"withdrawn_at"`
+	Amount      int       `json:"amount"`
+	RefID       string    `json:"reference_id"`
 }
 
 type DepositWalletDetail struct {

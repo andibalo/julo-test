@@ -29,7 +29,7 @@ func (p *WalletRepository) SaveWallet(wallet *model.Wallet) error {
 	return nil
 }
 
-func (p *WalletRepository) DepositWalletByCustID(custID string, balance int, transaction *model.Transaction) error {
+func (p *WalletRepository) UpdateWalletBalanceByCustID(custID string, balance int, transaction *model.Transaction) error {
 
 	err := p.db.Transaction(func(tx *gorm.DB) error {
 		// do some database operations in the transaction (use 'tx' from this point, not 'db')

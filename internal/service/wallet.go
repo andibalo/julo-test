@@ -28,8 +28,65 @@ func NewWalletService(config Config, store storage.Storage) *walletService {
 	}
 }
 
+func (s *walletService) WithdrawFromWallet(amount int, custID, refID string) (response.Code, *model.Wallet, *model.Transaction, error) {
+	s.config.Logger().Info("WithdrawFromWallet: withdrawing from wallet")
+
+	wallet, err := s.store.FetchWalletByCustID(custID)
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			s.config.Logger().Error("WithdrawFromWallet: wallet not found", zap.Error(err))
+			return response.NotFound, nil, nil, voerrors.ErrNotFound
+		}
+
+		s.config.Logger().Error("WithdrawFromWallet: error fetching wallet by cust id", zap.Error(err))
+		return response.ServerError, nil, nil, err
+	}
+
+	if amount > wallet.Balance {
+		s.config.Logger().Error("WithdrawFromWallet: balance not enough", zap.Error(err))
+		return response.BadRequest, nil, nil, voerrors.ErrInsufficientBalance
+	}
+
+	existingTransaction, err := s.store.FetchTransactionByRefID(refID)
+
+	if existingTransaction != nil {
+		s.config.Logger().Error("WithdrawFromWallet: duplicate reference id", zap.Error(err))
+		return response.BadRequest, nil, nil, voerrors.ErrDuplicateRefID
+	}
+
+	if err != nil {
+		if !errors.Is(err, gorm.ErrRecordNotFound) {
+			s.config.Logger().Error("WithdrawFromWallet: error fetching transaction by ref id", zap.Error(err))
+			return response.ServerError, nil, nil, err
+		}
+	}
+
+	txn := &model.Transaction{
+		TxnType:     constants.TxnWithdraw,
+		WithdrawnBy: custID,
+		WithdrawnAt: sql.NullTime{Time: time.Now(), Valid: true},
+		Status:      "success",
+		Amount:      amount,
+		ReferenceId: refID,
+	}
+
+	newBalance := wallet.Balance - amount
+
+	err = s.store.UpdateWalletBalanceByCustID(custID, newBalance, txn)
+
+	if err != nil {
+		s.config.Logger().Error("WithdrawFromWallet: error withdrawing from to wallet", zap.Error(err))
+		return response.ServerError, nil, nil, err
+	}
+
+	wallet.Balance = newBalance
+
+	return response.Success, wallet, txn, nil
+}
+
 func (s *walletService) DepositWallet(amount int, custID, refID string) (response.Code, *model.Wallet, *model.Transaction, error) {
-	s.config.Logger().Info("DepositWallet: enabling wallet")
+	s.config.Logger().Info("DepositWallet: depositing to wallet")
 
 	wallet, err := s.store.FetchWalletByCustID(custID)
 
@@ -68,10 +125,10 @@ func (s *walletService) DepositWallet(amount int, custID, refID string) (respons
 
 	newBalance := wallet.Balance + amount
 
-	err = s.store.DepositWalletByCustID(custID, newBalance, txn)
+	err = s.store.UpdateWalletBalanceByCustID(custID, newBalance, txn)
 
 	if err != nil {
-		s.config.Logger().Error("DepositWallet: error depositing to wallt", zap.Error(err))
+		s.config.Logger().Error("DepositWallet: error depositing to wallet", zap.Error(err))
 		return response.ServerError, nil, nil, err
 	}
 

@@ -14,6 +14,6 @@ func (s *Store) UpdateWalletStatusByCustID(custID, status string) error {
 	return s.walletRepository.UpdateWalletStatusByCustID(custID, status)
 }
 
-func (s *Store) DepositWalletByCustID(custID string, balance int, transaction *model.Transaction) error {
-	return s.walletRepository.DepositWalletByCustID(custID, balance, transaction)
+func (s *Store) UpdateWalletBalanceByCustID(custID string, balance int, transaction *model.Transaction) error {
+	return s.walletRepository.UpdateWalletBalanceByCustID(custID, balance, transaction)
 }

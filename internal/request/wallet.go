@@ -8,3 +8,8 @@ type DepositWalletRequest struct {
 	Amount int    `json:"amount" validate:"required"`
 	RefID  string `json:"reference_id" validate:"required"`
 }
+
+type WithdrawWalletRequest struct {
+	Amount int    `json:"amount" validate:"required"`
+	RefID  string `json:"reference_id" validate:"required"`
+}

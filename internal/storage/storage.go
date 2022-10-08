@@ -59,7 +59,7 @@ type Storage interface {
 	CreateWallet(wallet *model.Wallet) error
 	FetchWalletByCustID(custID string) (*model.Wallet, error)
 	UpdateWalletStatusByCustID(custID, status string) error
-	DepositWalletByCustID(custID string, balance int, transaction *model.Transaction) error
+	UpdateWalletBalanceByCustID(custID string, balance int, transaction *model.Transaction) error
 	CreateTransaction(transaction *model.Transaction) error
 	FetchTransactionByRefID(refID string) (*model.Transaction, error)
 }
@@ -68,7 +68,7 @@ type WalletRepository interface {
 	GetWalletByCustID(custID string) (*model.Wallet, error)
 	SaveWallet(wallet *model.Wallet) error
 	UpdateWalletStatusByCustID(custID, status string) error
-	DepositWalletByCustID(custID string, balance int, transaction *model.Transaction) error
+	UpdateWalletBalanceByCustID(custID string, balance int, transaction *model.Transaction) error
 }
 
 type TransactionRepository interface {
